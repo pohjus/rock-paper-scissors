@@ -1,11 +1,15 @@
 package fi.company;
 
+import fi.company.data.Winner;
+import fi.company.util.ArtificialIntelligence;
+import fi.company.util.Input;
+
 public class RockPaperScissors {
 
     // Matrix for calculating who won.
-    private Result[][]  whoWon = {{ Result.TIE,      Result.COMPUTER, Result.PLAYER },
-                                  { Result.PLAYER,   Result.TIE,      Result.COMPUTER},
-                                  { Result.COMPUTER, Result.PLAYER,   Result.TIE} };
+    private Winner[][]  whoWon = {{ Winner.TIE,      Winner.COMPUTER, Winner.PLAYER },
+                                  { Winner.PLAYER,   Winner.TIE,      Winner.COMPUTER},
+                                  { Winner.COMPUTER, Winner.PLAYER,   Winner.TIE} };
 
     // How many times computer won.
     private int computerWon;
@@ -33,7 +37,7 @@ public class RockPaperScissors {
         for(int i=0; i<rounds; i++) {
 
             // Ask user's choice, if incorrect value, will be asked again.
-            var userWeapon = Input.getInputUntilCorrect("Choose your Weapon");
+            var userWeapon = Input.getInputUntilCorrect("Choose your shape (rock, paper, scissors):", "Wrong input.");
 
             // Get computer's choice.
             var computerWeapon = ArtificialIntelligence.getWeapon();
@@ -41,7 +45,7 @@ public class RockPaperScissors {
             System.out.println("Computer chose " + computerWeapon);
 
             // Check who won
-            Result whoWon = this.whoWon[ userWeapon.getValue() ][ computerWeapon.getValue() ];
+            var whoWon = this.whoWon[ userWeapon.getValue() ][ computerWeapon.getValue() ];
 
             // Display who won (or tie).
             outputResult(whoWon);
@@ -50,11 +54,11 @@ public class RockPaperScissors {
         outputVictory();
     }
 
-    private void outputResult(Result result) {
-        if(result == Result.COMPUTER) {
+    private void outputResult(Winner result) {
+        if(result == Winner.COMPUTER) {
             computerWon++;
             System.out.println("Computer won!");
-        } else if(result == Result.PLAYER) {
+        } else if(result == Winner.PLAYER) {
             playerWon++;
             System.out.println("Player won!");
         } else {
@@ -63,9 +67,16 @@ public class RockPaperScissors {
     }
 
     private void outputVictory() {
-        System.out.println("-".repeat(10));
-        System.out.println("Computer won = " + computerWon + " times");
-        System.out.println("Player   won = " + playerWon + " times");
+        // Uses textblocks preview feature, Java 14+
+        var output = """
+                     ------------------------------
+                     RESULT, best of %s
+                     ------------------------------
+                     Computer won %s times
+                     Player   won %s times
+                     """.formatted(rounds, computerWon, playerWon);
+
+        System.out.println(output);
 
         if(computerWon > playerWon) {
             System.out.println("Computer wins!");
