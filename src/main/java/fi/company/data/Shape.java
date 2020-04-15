@@ -1,5 +1,10 @@
 package fi.company.data;
 
+/**
+ * Enume presenting the shapes (rock, paper scissors).
+ *
+ * @author Jussi Pohjolainen
+ */
 public enum Shape {
     ROCK(0), PAPER(1), SCISSORS(2);
 
