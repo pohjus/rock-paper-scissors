@@ -10,11 +10,11 @@ public class Input {
         while(inValidInput) {
             System.out.println(question);
             String input = myInput.nextLine();
-            if(input.equals("rock")) {
+            if(input.equalsIgnoreCase("rock")) {
                 return Weapon.ROCK;
-            } else if(input.equals("paper")) {
+            } else if(input.equalsIgnoreCase("paper")) {
                 return Weapon.PAPER;
-            } else if(input.equals("scissors")) {
+            } else if(input.equalsIgnoreCase("scissors")) {
                 return Weapon.SCISSORS;
             }
         }

@@ -48,9 +48,13 @@ public class RockPaperScissors {
     }
 
     private void outputVictory() {
+        System.out.println("**********");
+        System.out.println("Computer won " + computerWon);
+        System.out.println("Player won " + playerWon);
+
         if(computerWon > playerWon) {
             System.out.println("Computer wins!");
-        } else if (playerWon < computerWon){
+        } else if (computerWon < playerWon){
             System.out.println("Player wins!");
         } else {
             System.out.println("It was a tie!");
