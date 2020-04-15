@@ -1,7 +1,5 @@
 package fi.company;
 
-import javax.management.relation.RelationSupport;
-
 public class RockPaperScissors {
     private int computerWon;
     private int playerWon;
