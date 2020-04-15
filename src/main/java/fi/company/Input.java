@@ -17,9 +17,8 @@ public class Input {
     }
 
     public static Optional<Weapon> getInput(String question) {
-
         System.out.println(question);
-        String input = myInput.nextLine().toLowerCase();
+        var input = myInput.nextLine().toLowerCase();
 
         return switch (input) {
             case "rock" -> Optional.of(Weapon.ROCK);

@@ -1,33 +1,49 @@
 package fi.company;
 
 public class RockPaperScissors {
+
+    // Matrix for calculating who won.
+    private Result[][]  whoWon = {{ Result.TIE,      Result.COMPUTER, Result.PLAYER },
+                                  { Result.PLAYER,   Result.TIE,      Result.COMPUTER},
+                                  { Result.COMPUTER, Result.PLAYER,   Result.TIE} };
+
+    // How many times computer won.
     private int computerWon;
+
+    // How many times player won.
     private int playerWon;
 
+    // number of rounds.
     private int rounds;
 
-    public RockPaperScissors(int rounds) {
-        this.rounds = rounds;
+    public void setRounds(int rounds) {
+        if(rounds >= 3) {
+            this.rounds = rounds;
+        } else {
+            throw new IllegalArgumentException("Rounds must be >= 3");
+        }
     }
-    // Matrix for whowon
 
-    private Result[][]  whoWon = {{Result.TIE, Result.COMPUTER, Result.PLAYER},
-            {Result.PLAYER, Result.TIE, Result.COMPUTER},
-            {Result.COMPUTER, Result.PLAYER, Result.TIE}};
+    public RockPaperScissors(int rounds) {
+        setRounds(rounds);
+    }
+
 
     public void playGame() {
         for(int i=0; i<rounds; i++) {
-            // Ask user input
+
+            // Ask user's choice, if incorrect value, will be asked again.
             var userWeapon = Input.getInputUntilCorrect("Choose your Weapon");
 
-            // Calculate computer input
+            // Get computer's choice.
             var computerWeapon = ArtificialIntelligence.getWeapon();
 
             System.out.println("Computer chose " + computerWeapon);
-            // Check who won
-            Result whoWon = this.whoWon[userWeapon.getValue()][computerWeapon.getValue()];
 
-            // Display victory or tie
+            // Check who won
+            Result whoWon = this.whoWon[ userWeapon.getValue() ][ computerWeapon.getValue() ];
+
+            // Display who won (or tie).
             outputResult(whoWon);
         }
 
@@ -47,9 +63,9 @@ public class RockPaperScissors {
     }
 
     private void outputVictory() {
-        System.out.println("*".repeat(10));
-        System.out.println("Computer won " + computerWon);
-        System.out.println("Player won " + playerWon);
+        System.out.println("-".repeat(10));
+        System.out.println("Computer won = " + computerWon + " times");
+        System.out.println("Player   won = " + playerWon + " times");
 
         if(computerWon > playerWon) {
             System.out.println("Computer wins!");
