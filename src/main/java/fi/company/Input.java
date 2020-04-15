@@ -1,24 +1,31 @@
 package fi.company;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Input {
     private static Scanner myInput = new Scanner(System.in);
 
-    public static Weapon getInput(String question) {
-        boolean inValidInput = true;
-        while(inValidInput) {
-            System.out.println(question);
-            String input = myInput.nextLine();
-            if(input.equalsIgnoreCase("rock")) {
-                return Weapon.ROCK;
-            } else if(input.equalsIgnoreCase("paper")) {
-                return Weapon.PAPER;
-            } else if(input.equalsIgnoreCase("scissors")) {
-                return Weapon.SCISSORS;
-            }
-        }
+    public static Weapon getInputUntilCorrect(String question) {
+        Optional<Weapon> input = null;
 
-        return null;
+        do {
+            input = getInput(question);
+        } while(input.isEmpty());
+
+        return input.get();
+    }
+
+    public static Optional<Weapon> getInput(String question) {
+
+        System.out.println(question);
+        String input = myInput.nextLine().toLowerCase();
+
+        return switch (input) {
+            case "rock" -> Optional.of(Weapon.ROCK);
+            case "paper" -> Optional.of(Weapon.PAPER);
+            case "scissors" -> Optional.of(Weapon.SCISSORS);
+            default -> Optional.empty();
+        };
     }
 }

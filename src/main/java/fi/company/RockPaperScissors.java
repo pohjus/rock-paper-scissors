@@ -10,6 +10,7 @@ public class RockPaperScissors {
         this.rounds = rounds;
     }
     // Matrix for whowon
+
     private Result[][]  whoWon = {{Result.TIE, Result.COMPUTER, Result.PLAYER},
             {Result.PLAYER, Result.TIE, Result.COMPUTER},
             {Result.COMPUTER, Result.PLAYER, Result.TIE}};
@@ -17,7 +18,7 @@ public class RockPaperScissors {
     public void playGame() {
         for(int i=0; i<rounds; i++) {
             // Ask user input
-            var userWeapon = Input.getInput("Choose your Weapon");
+            var userWeapon = Input.getInputUntilCorrect("Choose your Weapon");
 
             // Calculate computer input
             var computerWeapon = ArtificialIntelligence.getWeapon();
@@ -46,7 +47,7 @@ public class RockPaperScissors {
     }
 
     private void outputVictory() {
-        System.out.println("**********");
+        System.out.println("*".repeat(10));
         System.out.println("Computer won " + computerWon);
         System.out.println("Player won " + playerWon);
 
